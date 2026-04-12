@@ -2,10 +2,11 @@ package com.zhafran0006.puncak.screen
 
 import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -17,22 +18,45 @@ import androidx.compose.ui.unit.dp
 import com.zhafran0006.puncak.R
 import com.zhafran0006.puncak.viewmodel.PeakViewModel
 
+// Data class Gear (kalau lu udah pisah file, ini dihapus aja biar nggak bentrok)
 data class Gear(val name: String, var isPacked: Boolean = false)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(mountainName: String, viewModel: PeakViewModel, onBack: () -> Unit) {
+fun DetailScreen(
+    mountainName: String,
+    viewModel: PeakViewModel,
+    onBack: () -> Unit
+) {
     val context = LocalContext.current
-    var inputText by rememberSaveable { mutableStateOf("") }
+
+    // --- REAL-TIME STATE DARI VIEWMODEL ---
     val allGearMap by viewModel.allGearLists.collectAsState()
     val gearList = allGearMap[mountainName] ?: emptyList()
+
+    // --- LOCAL STATE BUAT INPUT ---
+    var inputText by rememberSaveable { mutableStateOf("") }
     var isError by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text(mountainName) }) }
+        topBar = {
+            TopAppBar(
+                title = { Text(mountainName) },
+                // --- INI DIA TOMBOL NAVIGASI BACK-NYA ---
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Kembali"
+                        )
+                    }
+                }
+            )
+        }
     ) { padding ->
         Column(modifier = Modifier.padding(padding).padding(16.dp)) {
-            // Aspek Kebaruan: Dropdown Kategori
+
+            // Aspek Kebaruan: Dropdown Tipe Pendakian
             var expanded by remember { mutableStateOf(false) }
             val options = listOf("Tektok", "Camping")
             var selectedOption by remember { mutableStateOf(options[0]) }
@@ -63,7 +87,7 @@ fun DetailScreen(mountainName: String, viewModel: PeakViewModel, onBack: () -> U
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Aspek Fungsionalitas: Input dan Feedback
+            // Aspek Fungsionalitas: Input Barang
             OutlinedTextField(
                 value = inputText,
                 onValueChange = { inputText = it; isError = false },
@@ -87,7 +111,7 @@ fun DetailScreen(mountainName: String, viewModel: PeakViewModel, onBack: () -> U
                 Text(stringResource(R.string.btn_add_gear))
             }
 
-            // Aspek Implicit Intent
+            // Aspek Fungsionalitas: Implicit Intent Google Maps
             Button(
                 onClick = {
                     val uri = Uri.parse("geo:0,0?q=$mountainName")
@@ -100,7 +124,7 @@ fun DetailScreen(mountainName: String, viewModel: PeakViewModel, onBack: () -> U
                 Text(stringResource(R.string.btn_maps))
             }
 
-            // Aspek Kebaruan: Checkbox
+            // Aspek Kebaruan: List Checklist
             LazyColumn {
                 items(gearList) { gear ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
