@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Puncak</string>
+    <string name="title_home">Hike List</string>
+    <string name="btn_add_gear">Add Gear</string>
+    <string name="input_hint">Gear name...</string>
+    <string name="error_empty">Input cannot be empty!</string>
+    <string name="btn_maps">Open Trailhead in Maps</string>
+</resources>

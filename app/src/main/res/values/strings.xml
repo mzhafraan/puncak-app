@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Puncak</string>
+    <string name="title_home">Daftar Pendakian</string>
+    <string name="btn_add_gear">Tambah Barang</string>
+    <string name="input_hint">Nama perlengkapan...</string>
+    <string name="error_empty">Input nggak boleh kosong, bro!</string>
+    <string name="btn_maps">Buka Titik Awal di Maps</string>
 </resources>
