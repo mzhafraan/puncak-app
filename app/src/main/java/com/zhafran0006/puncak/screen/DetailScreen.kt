@@ -15,15 +15,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.zhafran0006.puncak.R
+import com.zhafran0006.puncak.viewmodel.PeakViewModel
 
 data class Gear(val name: String, var isPacked: Boolean = false)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(mountainName: String, onBack: () -> Unit) {
+fun DetailScreen(mountainName: String, viewModel: PeakViewModel, onBack: () -> Unit) {
     val context = LocalContext.current
     var inputText by rememberSaveable { mutableStateOf("") }
-    var gearList by rememberSaveable { mutableStateOf(listOf<Gear>()) }
+    val allGearMap by viewModel.allGearLists.collectAsState()
+    val gearList = allGearMap[mountainName] ?: emptyList()
     var isError by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
@@ -74,7 +76,7 @@ fun DetailScreen(mountainName: String, onBack: () -> Unit) {
             Button(
                 onClick = {
                     if (inputText.isNotBlank()) {
-                        gearList = gearList + Gear(inputText)
+                        viewModel.addGear(mountainName, inputText)
                         inputText = ""
                     } else {
                         isError = true
@@ -104,10 +106,8 @@ fun DetailScreen(mountainName: String, onBack: () -> Unit) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Checkbox(
                             checked = gear.isPacked,
-                            onCheckedChange = { checked ->
-                                gearList = gearList.map {
-                                    if (it.name == gear.name) it.copy(isPacked = checked) else it
-                                }
+                            onCheckedChange = {
+                                viewModel.toggleGear(mountainName, gear)
                             }
                         )
                         Text(gear.name)

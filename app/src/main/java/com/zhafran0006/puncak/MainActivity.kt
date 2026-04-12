@@ -5,16 +5,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.*
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.zhafran0006.puncak.screen.DetailScreen
 import com.zhafran0006.puncak.screen.HomeScreen
 import com.zhafran0006.puncak.ui.theme.PuncakTheme
+import com.zhafran0006.puncak.viewmodel.PeakViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val peakViewModel = PeakViewModel()
         setContent {
             // Theme state yang di-handle otomatis oleh sistem (Dark/Light mode)
             PuncakTheme {
@@ -28,7 +31,10 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("detail/{mountainName}") { backStackEntry ->
                         val mountainName = backStackEntry.arguments?.getString("mountainName") ?: ""
-                        DetailScreen(mountainName = mountainName, onBack = { navController.popBackStack() })
+                        DetailScreen(
+                            mountainName = mountainName,
+                            viewModel = peakViewModel,
+                            onBack = { navController.popBackStack() })
                     }
                 }
             }
