@@ -1,43 +1,26 @@
 package com.zhafran0006.puncak.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
+private val PurpleDark = darkColorScheme(primary = Purple80, secondary = PurpleGrey80, tertiary = Pink80)
+private val PurpleLight = lightColorScheme(primary = Purple40, secondary = PurpleGrey40, tertiary = Pink40)
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+private val BlueDark = darkColorScheme(primary = Color(0xFFADC6FF), secondary = Color(0xFFBBC6E4), tertiary = Color(0xFFD9BBDD))
+private val BlueLight = lightColorScheme(primary = Color(0xFF335CA8), secondary = Color(0xFF545D78), tertiary = Color(0xFF705573))
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
+private val GreenDark = darkColorScheme(primary = Color(0xFF81D6A5), secondary = Color(0xFFB3CCBE), tertiary = Color(0xFFBDC7DE))
+private val GreenLight = lightColorScheme(primary = Color(0xFF006D44), secondary = Color(0xFF4E6355), tertiary = Color(0xFF3C6472))
 
 @Composable
 fun PuncakTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    themeIndex: Int = 0,
+    dynamicColor: Boolean = false, // Disabled to prioritize custom theme selection
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -45,9 +28,13 @@ fun PuncakTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        else -> {
+            when (themeIndex) {
+                1 -> if (darkTheme) BlueDark else BlueLight
+                2 -> if (darkTheme) GreenDark else GreenLight
+                else -> if (darkTheme) PurpleDark else PurpleLight
+            }
+        }
     }
 
     MaterialTheme(
