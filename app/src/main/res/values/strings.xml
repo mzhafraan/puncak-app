@@ -1,8 +1,26 @@
 <resources>
     <string name="app_name">Puncak</string>
     <string name="title_home">Daftar Pendakian</string>
-    <string name="btn_add_gear">Tambah Barang</string>
+    <string name="btn_add_gear">Simpan Barang</string>
+    <string name="add_gear_hint">Tambah Perlengkapan</string>
     <string name="input_hint">Nama perlengkapan...</string>
     <string name="error_empty">Input nggak boleh kosong, bro!</string>
     <string name="btn_maps">Buka Titik Awal di Maps</string>
+    <string name="dark_mode">Mode Gelap</string>
+    <string name="about">Tentang Aplikasi</string>
+    <string name="share">Bagikan List</string>
+    <string name="list_title">Daftar Perlengkapan:</string>
+    <string name="update_item">Update Barang</string>
+    <string name="delete_item">Hapus Barang</string>
+    <string name="delete_confirm">Apakah Anda yakin ingin menghapus \'%1$s\'?</string>
+    <string name="confirm_delete">Hapus</string>
+    <string name="cancel">Batal</string>
+    <string name="undo">Undo</string>
+    <string name="item_deleted">Barang dihapus</string>
+    <string name="about_text">Aplikasi Puncak membantu pendaki mengelola daftar perlengkapan mereka untuk setiap gunung.</string>
+    <string name="developer_name">Dikembangkan oleh: Zhafran</string>
+    <string name="share_title">Daftar Perlengkapan %s</string>
+    <string name="change_theme">Ganti Warna Tema</string>
+    <string name="layout_list">Tampilan List</string>
+    <string name="layout_grid">Tampilan Grid</string>
 </resources>

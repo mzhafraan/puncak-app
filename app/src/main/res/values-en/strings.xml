@@ -1,9 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Puncak</string>
     <string name="title_home">Hike List</string>
-    <string name="btn_add_gear">Add Gear</string>
+    <string name="btn_add_gear">Save Item</string>
+    <string name="add_gear_hint">Add Equipment</string>
     <string name="input_hint">Gear name...</string>
     <string name="error_empty">Input cannot be empty!</string>
     <string name="btn_maps">Open Trailhead in Maps</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="about">About App</string>
+    <string name="share">Share List</string>
+    <string name="list_title">Equipment List:</string>
+    <string name="update_item">Update Item</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="delete_confirm">Are you sure you want to delete \'%1$s\'?</string>
+    <string name="confirm_delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="undo">Undo</string>
+    <string name="item_deleted">Item deleted</string>
+    <string name="about_text">Puncak app helps hikers manage their equipment list for every mountain.</string>
+    <string name="developer_name">Developed by: Zhafran</string>
+    <string name="share_title">%s Equipment List</string>
+    <string name="change_theme">Change Theme Color</string>
+    <string name="layout_list">List View</string>
+    <string name="layout_grid">Grid View</string>
 </resources>
